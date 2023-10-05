@@ -15,10 +15,10 @@
                 type: 'POST',
                 success: function (data) {
                     console.log(data)
-                    $('#totalCount').text('Total In attesa di consegna: ' + data.TotalCount);
+                    $('#totalCount').text('In attesa di consegna: ' + data.TotalCount);
                 },
                 error: function () {
-                    $('#totalCount').text('Error fetching total count');
+                    $('#totalCount').text('Si è verificato un errore durante il recupero dei dati.');
                 }
             });
         });
