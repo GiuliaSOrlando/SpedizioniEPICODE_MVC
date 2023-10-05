@@ -18,7 +18,7 @@
             color: white; 
             text-align: center;
             padding: 10px 0;
-            position: absolute;
+            position: sticky;
             bottom: 0;
             width: 100%;
         }
@@ -54,6 +54,9 @@
                                 <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown" data-bs-dropdown="dropdown">
                                     <li>@Html.ActionLink("Aggiungi spedizione", "Create", "Shipment", new { area = "" }, new { @class = "dropdown-item" })</li>
                                     <li>@Html.ActionLink("Lista spedizioni", "ViewAll", "Shipment", new { area = "" }, new { @class = "dropdown-item" })</li>
+                                    <li>@Html.ActionLink("Filtra", "ViewDate", "Shipment", new { area = "" }, new { @class = "dropdown-item" })</li>
+                                    <li>@Html.ActionLink("In attesa", "CountState", "Shipment", new { area = "" }, new { @class = "dropdown-item" })</li>
+                                    <li>@Html.ActionLink("Città destinataria", "GroupCity", "Shipment", new { area = "" }, new { @class = "dropdown-item" })</li>
                                     <li class="dropdown-item">
                                         <form class="dropdown-form" asp-action="Details" asp-controller="Shipment" method="get">
                                             <div class="input-group">
