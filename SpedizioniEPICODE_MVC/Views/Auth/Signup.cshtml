@@ -1,0 +1,34 @@
+﻿@model SpedizioniEPICODE_MVC.Models.Users
+
+@{
+    ViewBag.Title = "Signup";
+}
+
+<div class="d-flex justify-content-center align-items-center">
+    <div class="shadow-lg p-5 rounded-2 bg-dark text-center">
+        <h2 class="fw-lighter text-warning">SIGNUP</h2>
+
+        @if (!string.IsNullOrEmpty(ViewBag.MessaggioErrore))
+        {
+            <div class="alert alert-danger">@ViewBag.MessaggioErrore</div>
+        }
+
+        @using (Html.BeginForm())
+        {
+            <div class="form-group">
+                @Html.ValidationMessageFor(model => model.Username)
+                @Html.LabelFor(model => model.Username, new { @class = "text-warning" })
+                @Html.TextBoxFor(model => model.Username, new { @class = "form-control border border-0 bg-opacity-50 bg-white" })
+            </div>
+            <div class="form-group">
+                @Html.ValidationMessageFor(model => model.Password)
+                @Html.LabelFor(model => model.Password, new { @class = "text-warning" })
+                @Html.TextBoxFor(model => model.Password, new { @class = "form-control border border-0 bg-opacity-50 bg-white" })
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Registrati" class="btn btn-outline-warning" />
+            </div>
+        }
+    </div>
+</div>

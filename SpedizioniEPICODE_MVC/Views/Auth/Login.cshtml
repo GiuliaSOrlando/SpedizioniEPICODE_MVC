@@ -1,0 +1,32 @@
+﻿@model SpedizioniEPICODE_MVC.Models.Users
+
+@{
+    ViewBag.Title = "Login";
+}
+
+<div class="d-flex justify-content-center align-items-center">
+    <div class="shadow-lg p-5 rounded-2 bg-warning text-center">
+        <h2 class="fw-lighter">LOGIN</h2>
+
+        @if (!string.IsNullOrEmpty(ViewBag.MessaggioErrore))
+        {
+            <div class="alert alert-danger">@ViewBag.MessaggioErrore</div>
+        }
+
+        @using (Html.BeginForm())
+        {
+            <div class="form-group">
+                @Html.LabelFor(model => model.Username)
+                @Html.TextBoxFor(model => model.Username, new { @class = "form-control border border-0 bg-opacity-50 bg-white" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Password)
+                @Html.PasswordFor(model => model.Password, new { @class = "form-control border border-0 bg-opacity-50 bg-white" })
+            </div>
+            <div class="form-group">
+                <br />
+                <input type="submit" value="Login" class="btn btn-dark w-100" />
+            </div>
+        }
+    </div>
+</div>

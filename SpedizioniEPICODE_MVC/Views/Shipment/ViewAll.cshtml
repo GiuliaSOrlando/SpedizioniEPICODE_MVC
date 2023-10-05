@@ -1,0 +1,33 @@
+﻿@model List<SpedizioniEPICODE_MVC.Models.Shipments>
+
+<div class="bg-opacity-75 bg-warning p-5 border border-3 border-white rounded-2">
+    <h2>TUTTE LE SPEDIZIONI</h2>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th class="text-white">Cliente</th>
+                <th class="text-white">Data spedizione</th>
+                <th class="text-white">Numero cliente</th>
+                <th class="text-white">Data consegna prevista</th>
+            </tr>
+        </thead>
+        <tbod>
+            @foreach (var shipment in Model)
+            {
+                <tr >
+                    <td>@shipment.Nome @shipment.Cognome</td>
+                    <td>@shipment.DataSpedizione.ToString("dd/MM/yyyy")</td>
+                    <td>@shipment.NumeroIdentificativo</td>
+                    <td>@shipment.DataConsegnaPrevista.ToString("dd/MM/yyyy")</td>
+                    <td>
+                        <div class="btn-group">
+                            @Html.ActionLink("Dettagli", "Details", "Shipment", new { id = shipment.IdSpedizione }, new { @class = "btn btn-dark" })
+                            @Html.ActionLink("Modifica", "Edit", "Shipment", new { id = shipment.IdSpedizione }, new { @class = "btn btn-outline-dark" })
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

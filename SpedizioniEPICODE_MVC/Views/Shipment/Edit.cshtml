@@ -1,0 +1,109 @@
+﻿@model SpedizioniEPICODE_MVC.Models.Shipments
+
+<div class="container mt-5 bg-warning">
+    <h2 class="fw-lighter text-dark">MODIFICA SPEDIZIONE</h2>
+    <hr class="text-dark" />
+
+    @using (Html.BeginForm("Edit", "Shipment", FormMethod.Post))
+    {
+        @Html.HiddenFor(model => model.IdSpedizione)
+        @Html.HiddenFor(model => model.NumeroIdentificativo)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DataSpedizione, new { @class = "control-label" })
+            @Html.TextBoxFor(model => model.DataSpedizione, new {type="date", @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.DataSpedizione, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Peso, new { @class = "control-label" })
+            @Html.TextBoxFor(model => model.Peso, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Peso, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CittaDestinataria, new { @class = "control-label" })
+            @Html.TextBoxFor(model => model.CittaDestinataria, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.CittaDestinataria, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.IndirizzoDestinatario, new { @class = "control-label" })
+            @Html.TextBoxFor(model => model.IndirizzoDestinatario, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.IndirizzoDestinatario, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.NominativoDestinatario, new { @class = "control-label" })
+            @Html.TextBoxFor(model => model.NominativoDestinatario, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.NominativoDestinatario, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CostoSpedizione, new { @class = "control-label" })
+            @Html.TextBoxFor(model => model.CostoSpedizione, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.CostoSpedizione, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DataConsegnaPrevista, new { @class = "control-label" })
+            @Html.TextBoxFor(model => model.DataConsegnaPrevista, new { type = "date", @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.DataConsegnaPrevista, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="row p-1">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="text-dark">Stato spedizione</label>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    @foreach (var status in new List<string> { "In elaborazione", "In transito", "Spedito", "Consegnato", "Ritirato", "Rifiutato" })
+                    {
+                        <div class="form-check">
+                            <input type="radio" asp-for="StatoSpedizione" class="form-check-input" value="@status" name="statoSpedizione" id="status-@status" />
+                            <label class="form-check-label text-dark" for="status-@status">@status</label>
+                        </div>
+                    }
+                    @Html.ValidationMessageFor(model => model.StatoSpedizione, "", new { @class = "text-white" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.LuogoAttuale, new { @class = "control-label" })
+            @Html.TextBoxFor(model => model.LuogoAttuale, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.LuogoAttuale, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DescrizioneAggiornamento, new { @class = "control-label" })
+            @Html.TextBoxFor(model => model.DescrizioneAggiornamento, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.DescrizioneAggiornamento, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DataOraAggiornamento, new { @class = "control-label" })
+            @Html.TextBoxFor(model => model.DataOraAggiornamento, new { type = "date", @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.DataOraAggiornamento, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Nome, new { @class = "control-label" })
+            @Html.TextBoxFor(model => model.Nome, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Cognome, new { @class = "control-label" })
+            @Html.TextBoxFor(model => model.Cognome, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Cognome, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            <input type="submit" value="Salva Modifiche" class="btn btn-dark" />
+            @Html.ActionLink("Annulla", "DettagliSpedizione", new { id = Model.IdSpedizione }, new { @class = "btn btn-secondary" })
+        </div>
+    }
+</div>

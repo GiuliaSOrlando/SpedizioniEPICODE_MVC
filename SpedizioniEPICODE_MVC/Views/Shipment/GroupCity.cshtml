@@ -1,0 +1,31 @@
+﻿@@{
+    ViewBag.Title = "Group City";
+}
+
+<h2>Città Destinatarie</h2>
+
+<div id="cittaDestinatarie">
+</div>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $.ajax({
+                url: "GruppiCitta",
+                type: 'POST',
+                success: function (data) {
+                    var cittaDestinatarieHtml = '<ul>';
+                    for (var i = 0; i < data.length; i++) {
+                        cittaDestinatarieHtml += '<li>' + data[i] + '</li>';
+                    }
+                    cittaDestinatarieHtml += '</ul>';
+                    $('#cittaDestinatarie').html(cittaDestinatarieHtml);
+                },
+                error: function () {
+                    $('#cittaDestinatarie').html('Si è verificato un errore durante il recupero dei dati.');
+                }
+            });
+        });
+    </script>
+}
+

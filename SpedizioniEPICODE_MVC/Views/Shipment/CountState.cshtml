@@ -1,0 +1,26 @@
+﻿
+@{
+    ViewBag.Title = "CountState";
+}
+
+<h2>In attesa</h2>
+
+<div id="totalCount">Caricamento...</div>
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.ajax({
+                url: 'TotaleInAttesa', 
+                type: 'POST',
+                success: function (data) {
+                    console.log(data)
+                    $('#totalCount').text('Total In attesa di consegna: ' + data.TotalCount);
+                },
+                error: function () {
+                    $('#totalCount').text('Error fetching total count');
+                }
+            });
+        });
+    </script>
+    }

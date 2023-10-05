@@ -1,0 +1,188 @@
+﻿@{
+    ViewBag.Title = "ViewDate";
+}
+
+<div class="bg-dark text-bg-dark p-5">
+    <h2 class="">Visualizza spedizioni per data</h2>
+
+    <form id="dateFilterForm">
+        <div class="form-group">
+            <label for="periodo">Seleziona periodo:</label>
+            <select id="periodo" name="periodo" class="form-control">
+                <option value="personalizzato">Seleziona periodo specifico</option>
+                <option value="oggi">Oggi</option>
+                <option value="settimana">Ultima settimana</option>
+                <option value="mese">Ultimo mese</option>
+                <option value="sei-mesi">Ultimi sei mesi</option>
+            </select>
+        </div>
+
+        <div class="form-group" id="dateFields" style="display: none;">
+            <label for="dataInizio">Data Inizio:</label>
+            <input type="date" id="dataInizio" name="dataInizio" class="form-control" />
+        </div>
+        <div class="form-group" id="dateFieldsEnd" style="display: none;">
+            <label for="dataFine">Data Fine:</label>
+            <input type="date" id="dataFine" name="dataFine" class="form-control" />
+        </div>
+
+        <hr />
+        <div class="form-group">
+            <label for="numeroIdentificativo">Numero Identificativo:</label>
+            <input type="text" id="numeroIdentificativo" name="numeroIdentificativo" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="statoSpedizione">Stato Spedizione:</label>
+            <input type="text" id="statoSpedizione" name="statoSpedizione" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="cittaDestinataria">Città Destinataria:</label>
+            <input type="text" id="cittaDestinataria" name="cittaDestinataria" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="pesoMinimo">Peso Minimo:</label>
+            <input type="number" step="0.01" id="pesoMinimo" name="pesoMinimo" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="pesoMassimo">Peso Massimo:</label>
+            <input type="number" step="0.01" id="pesoMassimo" name="pesoMassimo" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="dataConsegnaPrevistaMinima">Data Consegna Prevista Minima:</label>
+            <input type="date" id="dataConsegnaPrevistaMinima" name="dataConsegnaPrevistaMinima" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="dataConsegnaPrevistaMassima">Data Consegna Prevista Massima:</label>
+            <input type="date" id="dataConsegnaPrevistaMassima" name="dataConsegnaPrevistaMassima" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="costoMinimo">Costo Minimo:</label>
+            <input type="number" step="0.01" id="costoMinimo" name="costoMinimo" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="costoMassimo">Costo Massimo:</label>
+            <input type="number" step="0.01" id="costoMassimo" name="costoMassimo" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="clienteNome">Nome Cliente:</label>
+            <input type="text" id="clienteNome" name="clienteNome" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="clienteCognome">Cognome Cliente:</label>
+            <input type="text" id="clienteCognome" name="clienteCognome" class="form-control" />
+        </div>
+
+
+        <br />
+        <button type="button" id="btnVisualizzaSpedizioni" class="btn btn-warning">Visualizza Spedizioni</button>
+    </form>
+
+    <table id="spedizioniTable" class="table">
+        <thead>
+            <tr>
+                <th class="text-warning">Numero identificativo</th>
+                <th class="text-warning">Data spedizione</th>
+                <th class="text-warning">Peso</th>
+                <th class="text-warning">Città destinataria</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>
+
+@section scripts{
+    <script>
+        function parseJsonDate(jsonDate) {
+            let parsedDate = new Date(parseInt(jsonDate.substr(6)));
+            return parsedDate.toLocaleDateString();
+        }
+
+        $(document).ready(function () {
+            $('#btnVisualizzaSpedizioni').click(function () {
+                let selectedOption = $('#periodo').val();
+                let dataInizio = null;
+                let dataFine = null;
+
+                if (selectedOption === 'personalizzato') {
+                    dataInizio = $('#dataInizio').val();
+                    dataFine = $('#dataFine').val();
+                }
+
+                let numeroIdentificativo = $('#numeroIdentificativo').val();
+                let statoSpedizione = $('#statoSpedizione').val();
+                let cittaDestinataria = $('#cittaDestinataria').val();
+                let pesoMinimo = $('#pesoMinimo').val();
+                let pesoMassimo = $('#pesoMassimo').val();
+                let dataConsegnaPrevistaMinima = $('#dataConsegnaPrevistaMinima').val();
+                let dataConsegnaPrevistaMassima = $('#dataConsegnaPrevistaMassima').val();
+                let costoMinimo = $('#costoMinimo').val();
+                let costoMassimo = $('#costoMassimo').val();
+                let clienteNome = $('#clienteNome').val();
+                let clienteCognome = $('#clienteCognome').val();
+
+                // Check if at least one filter value is provided
+                if (
+                    selectedOption === 'personalizzato' ||
+                    numeroIdentificativo ||
+                    statoSpedizione ||
+                    cittaDestinataria ||
+                    pesoMinimo ||
+                    pesoMassimo ||
+                    dataConsegnaPrevistaMinima ||
+                    dataConsegnaPrevistaMassima ||
+                    costoMinimo ||
+                    costoMassimo ||
+                    clienteNome ||
+                    clienteCognome
+                ) {
+                    $.ajax({
+                        url: '@Url.Action("VisualizzaSpedizioniFiltro", "Shipment")',
+                        type: 'POST',
+                        data: {
+                            periodo: selectedOption,
+                            dataInizio: dataInizio,
+                            dataFine: dataFine,
+                            numeroIdentificativo: numeroIdentificativo,
+                            statoSpedizione: statoSpedizione,
+                            cittaDestinataria: cittaDestinataria,
+                            pesoMinimo: pesoMinimo,
+                            pesoMassimo: pesoMassimo,
+                            dataConsegnaPrevistaMinima: dataConsegnaPrevistaMinima,
+                            dataConsegnaPrevistaMassima: dataConsegnaPrevistaMassima,
+                            costoMinimo: costoMinimo,
+                            costoMassimo: costoMassimo,
+                            clienteNome: clienteNome,
+                            clienteCognome: clienteCognome
+                        },
+                        success: function (data) {
+                            var tableBody = $('#spedizioniTable tbody');
+                            tableBody.empty();
+
+                            if (data.error) {
+                                tableBody.append($('<tr>').append($('<td colspan="4" class="text-white">Errore: ' + data.error + '</td>')));
+                            } else if (data.length > 0) {
+                                $.each(data, function (index, item) {
+                                    var row = $('<tr>');
+                                    row.append($('<td>').text(item.NumeroIdentificativo)).addClass("text-white");
+                                    row.append($('<td>').text(parseJsonDate(item.DataSpedizione))).addClass("text-white");
+                                    row.append($('<td>').text(item.Peso)).addClass("text-white");
+                                    row.append($('<td>').text(item.CittaDestinataria)).addClass("text-white");
+
+                                    tableBody.append(row);
+                                });
+                            } else {
+                                tableBody.append($('<tr>').append($('<td colspan="4" class="text-white">Nessuna spedizione trovata nel periodo selezionato.</td>')));
+                            }
+                        },
+                        error: function () {
+                            alert('Si è verificato un errore durante la richiesta.');
+                        }
+                    });
+                } else {
+                    alert('Inserisci almeno un filtro per eseguire la ricerca.');
+                }
+            });
+        });
+    </script>
+}

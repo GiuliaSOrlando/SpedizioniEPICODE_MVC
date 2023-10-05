@@ -1,0 +1,111 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Applicazione ASP.NET</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <style>
+        .container.body-content {
+            flex: 1;
+            padding-bottom: 60px;
+        }
+
+        footer {
+            background-color: #333; 
+            color: white; 
+            text-align: center;
+            padding: 10px 0;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+        }
+
+    </style>
+</head>
+<body class="bg-opacity-50 bg-gradient bg-black">
+    <div class="bg-warning">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark m-5">
+            <div class="container p-3">
+                <div class="d-flex align-items-center">
+                    <div>
+                        <img src="~/Content/img/logo.png" width="60px;" />
+                    </div>
+                    <div class="ms-3">
+                        @Html.ActionLink("EPL", "Index", "Home", new { area = "" }, new { @class = "navbar-brand text-warning fw-lighter fs-3" })
+                    </div>
+                </div>
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Attiva/Disattiva spostamento" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Spedizioni
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown" data-bs-dropdown="dropdown">
+                                    <li>@Html.ActionLink("Aggiungi spedizione", "Create", "Shipment", new { area = "" }, new { @class = "dropdown-item" })</li>
+                                    <li>@Html.ActionLink("Lista spedizioni", "ViewAll", "Shipment", new { area = "" }, new { @class = "dropdown-item" })</li>
+                                    <li class="dropdown-item">
+                                        <form class="dropdown-form" asp-action="Details" asp-controller="Shipment" method="get">
+                                            <div class="input-group">
+                                                @Html.TextBox("Details", "", null, new { @class = "form-control" })
+                                                <button type="submit" class="btn btn-warning">Cerca</button>
+                                            </div>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </li>
+                        }
+                        else
+                        {
+                            <li>@Html.ActionLink("Traccia spedizione", "Track", "Shipment", new { area = "" }, new { @class = "nav-link" })</li>
+                        }
+                        <li>@Html.ActionLink("Aggiungi cliente", "Create", "Customer", new { area = "" }, new { @class = "nav-link" })</li>
+                    </ul>
+                    <ul class="navbar-nav">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li>@Html.ActionLink("Login", "Login", "Auth", new { area = "" }, new { @class = "nav-link bg-warning rounded-3" })</li>
+                            <li>@Html.ActionLink("Logout", "Logout", "Auth", new { area = "" }, new { @class = "nav-link" })</li>
+                        }
+                        else
+                        {
+                            <li>@Html.ActionLink("Signup", "Signup", "Auth", new { area = "" }, new { @class = "nav-link" })</li>
+                            <li>@Html.ActionLink("Login", "Login", "Auth", new { area = "" }, new { @class = "nav-link bg-warning rounded-3" })</li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+    </div>
+
+
+
+
+    <div class="container body-content">
+        @RenderBody()
+        
+
+    </div>
+
+    <footer>
+        <hr />
+        <p>&copy; @DateTime.Now.Year - Giulia Orlando | EPICODE </p>
+    </footer>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jqueryval")
+    @RenderSection("scripts", required: false)
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>
