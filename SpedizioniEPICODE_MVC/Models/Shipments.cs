@@ -15,7 +15,6 @@ namespace SpedizioniEPICODE_MVC.Models
         //Proprietà
         public int IdSpedizione { get; set; }
 
-        public int ClienteId { get; set; }
 
         [Display(Name = "Numero identificativo")]
         [StringLength(36)]
@@ -229,7 +228,7 @@ namespace SpedizioniEPICODE_MVC.Models
             return shipments;
         }
 
-        public static Shipments DettagliSpedizione(int shipmentId)
+        public static Shipments DettagliSpedizione(int Id)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["SpedizioniEPICODE"].ConnectionString;
             SqlConnection sqlConnection = new SqlConnection(connectionString);
@@ -239,12 +238,12 @@ namespace SpedizioniEPICODE_MVC.Models
             {
                 sqlConnection.Open();
                 SqlCommand getShipmentDetailsCommand = new SqlCommand(
-                    "SELECT s.*,c.IdCliente, c.Nome, c.Cognome " +
+                    "SELECT s.*, c.Nome, c.Cognome, s.ClienteId " +
                     "FROM Spedizioni s " +
                     "INNER JOIN Clienti c ON s.ClienteId = c.IdCliente " +
                     "WHERE s.IdSpedizione = @ShipmentId", sqlConnection);
 
-                getShipmentDetailsCommand.Parameters.AddWithValue("@ShipmentId", shipmentId);
+                getShipmentDetailsCommand.Parameters.AddWithValue("@ShipmentId", Id);
                 SqlDataReader reader = getShipmentDetailsCommand.ExecuteReader();
 
                 if (reader.Read())
@@ -252,7 +251,6 @@ namespace SpedizioniEPICODE_MVC.Models
                     shipment = new Shipments
                     {
                         IdSpedizione = (int)reader["IdSpedizione"],
-                        ClienteId = (int)reader["IdCliente"],
                         NumeroIdentificativo = reader["NumeroIdentificativo"].ToString(),
                         DataSpedizione = (DateTime)reader["DataSpedizione"],
                         Peso = (decimal)reader["Peso"],
@@ -266,7 +264,8 @@ namespace SpedizioniEPICODE_MVC.Models
                         DescrizioneAggiornamento = reader["DescrizioneAggiornamento"].ToString(),
                         DataOraAggiornamento = (DateTime)reader["DataOraAggiornamento"],
                         Nome = reader["Nome"].ToString(),
-                        Cognome = reader["Cognome"].ToString()
+                        Cognome = reader["Cognome"].ToString(),
+                        ClienteID = (int)reader["ClienteId"]
                     };
                 }
 
@@ -278,7 +277,7 @@ namespace SpedizioniEPICODE_MVC.Models
             return shipment;
         }
 
-        public bool ModificaSpedizione(Shipments aggiornamentoSpedizione)
+        public static bool ModificaSpedizione(Shipments aggiornamentoSpedizione)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["SpedizioniEPICODE"].ConnectionString;
             SqlConnection sqlConnection = new SqlConnection(connectionString);
@@ -288,16 +287,24 @@ namespace SpedizioniEPICODE_MVC.Models
                 sqlConnection.Open();
 
                 SqlCommand modificaSpedizione = new SqlCommand(
-            "INSERT INTO Spedizioni (ClienteId, DataSpedizione, Peso, CittaDestinataria, " +
-            "IndirizzoDestinatario, NominativoDestinatario, CostoSpedizione, " +
-            "DataConsegnaPrevista, StatoSpedizione, LuogoAttuale, DescrizioneAggiornamento, " +
-            "DataOraAggiornamento) " +
-            "VALUES (@IdCliente, @DataSpedizione, @Peso, @CittaDestinataria, " +
-            "@IndirizzoDestinatario, @NominativoDestinatario, @CostoSpedizione, " +
-            "@DataConsegnaPrevista, @StatoSpedizione, @LuogoAttuale, @DescrizioneAggiornamento, @DataOraAggiornamento)",
-            sqlConnection);
+                    "UPDATE Spedizioni " +
+                    "SET NumeroIdentificativo = @NumeroIdentificativo, " +
+                    "DataSpedizione = @DataSpedizione, " +
+                    "Peso = @Peso, " +
+                    "CittaDestinataria = @CittaDestinataria, " +
+                    "IndirizzoDestinatario = @IndirizzoDestinatario, " +
+                    "NominativoDestinatario = @NominativoDestinatario, " +
+                    "CostoSpedizione = @CostoSpedizione, " +
+                    "DataConsegnaPrevista = @DataConsegnaPrevista, " +
+                    "StatoSpedizione = @StatoSpedizione, " +
+                    "LuogoAttuale = @LuogoAttuale, " +
+                    "DescrizioneAggiornamento = @DescrizioneAggiornamento, " +
+                    "DataOraAggiornamento = @DataOraAggiornamento, " +
+                    "ClienteId = @ClienteId " +
+                    "WHERE IdSpedizione = @IdSpedizione", sqlConnection);
 
-                modificaSpedizione.Parameters.AddWithValue("@IdCliente", aggiornamentoSpedizione.ClienteID);
+                modificaSpedizione.Parameters.AddWithValue("@IdSpedizione", aggiornamentoSpedizione.IdSpedizione);
+                modificaSpedizione.Parameters.AddWithValue("@NumeroIdentificativo", aggiornamentoSpedizione.NumeroIdentificativo);
                 modificaSpedizione.Parameters.AddWithValue("@DataSpedizione", aggiornamentoSpedizione.DataSpedizione);
                 modificaSpedizione.Parameters.AddWithValue("@Peso", aggiornamentoSpedizione.Peso);
                 modificaSpedizione.Parameters.AddWithValue("@CittaDestinataria", aggiornamentoSpedizione.CittaDestinataria);
@@ -309,7 +316,7 @@ namespace SpedizioniEPICODE_MVC.Models
                 modificaSpedizione.Parameters.AddWithValue("@LuogoAttuale", aggiornamentoSpedizione.LuogoAttuale);
                 modificaSpedizione.Parameters.AddWithValue("@DescrizioneAggiornamento", (object)aggiornamentoSpedizione.DescrizioneAggiornamento ?? DBNull.Value);
                 modificaSpedizione.Parameters.AddWithValue("@DataOraAggiornamento", aggiornamentoSpedizione.DataOraAggiornamento);
-
+                modificaSpedizione.Parameters.AddWithValue("@ClienteId", aggiornamentoSpedizione.ClienteID); 
 
                 modificaSpedizione.ExecuteNonQuery();
                 return true;
@@ -324,7 +331,6 @@ namespace SpedizioniEPICODE_MVC.Models
 
             return false;
         }
-
 
         public static List<Shipments> VisualizzaSpedizioneFiltro(
             DateTime? dataInizio,

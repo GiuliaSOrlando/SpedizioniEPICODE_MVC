@@ -92,7 +92,7 @@ namespace SpedizioniEPICODE_MVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                bool successo = spedizioneModificata.ModificaSpedizione(spedizioneModificata);
+                bool successo = Shipments.ModificaSpedizione(spedizioneModificata);
 
                 if (successo)
                 {

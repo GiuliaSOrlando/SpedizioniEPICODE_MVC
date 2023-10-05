@@ -5,46 +5,49 @@
     <hr class="text-warning" />
     <div class="text-bg-dark d-flex">
 
-            <dl class="row mx-auto">
-                <dt class="col-sm-3">Numero Identificativo:</dt>
-                <dd class="col-sm-9">@Model.NumeroIdentificativo</dd>
+        <dl class="row mx-auto">
+            <dt class="col-sm-3">Numero Identificativo:</dt>
+            <dd class="col-sm-9">@Model.NumeroIdentificativo</dd>
 
-                <dt class="col-sm-3">Data Spedizione:</dt>
-                <dd class="col-sm-9">@Model.DataSpedizione.ToString("dd/MM/yyyy")</dd>
+            <dt class="col-sm-3">Data Spedizione:</dt>
+            <dd class="col-sm-9">@Model.DataSpedizione.ToString("dd/MM/yyyy")</dd>
 
-                <dt class="col-sm-3">Peso:</dt>
-                <dd class="col-sm-9">@Model.Peso.ToString("F2")</dd>
+            <dt class="col-sm-3">Peso:</dt>
+            <dd class="col-sm-9">@Model.Peso.ToString("F2")</dd>
 
-                <dt class="col-sm-3">Città Destinataria:</dt>
-                <dd class="col-sm-9">@Model.CittaDestinataria</dd>
+            <dt class="col-sm-3">Città Destinataria:</dt>
+            <dd class="col-sm-9">@Model.CittaDestinataria</dd>
 
-                <dt class="col-sm-3">Indirizzo Destinatario:</dt>
-                <dd class="col-sm-9">@Model.IndirizzoDestinatario</dd>
+            <dt class="col-sm-3">Indirizzo Destinatario:</dt>
+            <dd class="col-sm-9">@Model.IndirizzoDestinatario</dd>
 
-                <dt class="col-sm-3">Nominativo Destinatario:</dt>
-                <dd class="col-sm-9">@Model.NominativoDestinatario</dd>
+            <dt class="col-sm-3">Nominativo Destinatario:</dt>
+            <dd class="col-sm-9">@Model.NominativoDestinatario</dd>
 
-                <dt class="col-sm-3">Costo Spedizione:</dt>
-                <dd class="col-sm-9">@Model.CostoSpedizione.ToString("F2")</dd>
+            <dt class="col-sm-3">Costo Spedizione:</dt>
+            <dd class="col-sm-9">@Model.CostoSpedizione.ToString("F2")</dd>
 
-                <dt class="col-sm-3">Data Consegna Prevista:</dt>
-                <dd class="col-sm-9">@Model.DataConsegnaPrevista.ToString("dd/MM/yyyy")</dd>
+            <dt class="col-sm-3">Data Consegna Prevista:</dt>
+            <dd class="col-sm-9">@Model.DataConsegnaPrevista.ToString("dd/MM/yyyy")</dd>
 
-                <dt class="col-sm-3">Stato Spedizione:</dt>
-                <dd class="col-sm-9">@Model.StatoSpedizione</dd>
+            <dt class="col-sm-3">Stato Spedizione:</dt>
+            <dd class="col-sm-9">@Model.StatoSpedizione</dd>
 
-                <dt class="col-sm-3">Luogo Attuale:</dt>
-                <dd class="col-sm-9">@Model.LuogoAttuale</dd>
+            <dt class="col-sm-3">Luogo Attuale:</dt>
+            <dd class="col-sm-9">@Model.LuogoAttuale</dd>
 
-                <dt class="col-sm-3">Descrizione Aggiornamento:</dt>
-                <dd class="col-sm-9">@Model.DescrizioneAggiornamento</dd>
+            <dt class="col-sm-3">Descrizione Aggiornamento:</dt>
+            <dd class="col-sm-9">@Model.DescrizioneAggiornamento</dd>
 
-                <dt class="col-sm-3">Data e Ora Aggiornamento:</dt>
-                <dd class="col-sm-9">@Model.DataOraAggiornamento.ToString("dd/MM/yyyy HH:mm:ss")</dd>
+            <dt class="col-sm-3">Data e Ora Aggiornamento:</dt>
+            <dd class="col-sm-9">@Model.DataOraAggiornamento.ToString("dd/MM/yyyy HH:mm:ss")</dd>
 
-                <dt class="col-sm-3">Cliente:</dt>
-                <dd class="col-sm-9">@Model.Nome @Model.Cognome</dd>
-            </dl>
+            <dt class="col-sm-3">Id cliente:</dt>
+            <dd class="col-sm-9">@Model.ClienteID</dd>
+
+            <dt class="col-sm-3">Cliente:</dt>
+            <dd class="col-sm-9">@Model.Nome @Model.Cognome</dd>
+        </dl>
         </div>
 
 

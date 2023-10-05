@@ -193,10 +193,10 @@
     <Content Include="Views\Shipment\Track.cshtml" />
     <Content Include="Views\Shipment\ViewAll.cshtml" />
     <Content Include="Views\Shipment\Details.cshtml" />
-    <Content Include="Views\Shipment\Edit.cshtml" />
     <Content Include="Views\Shipment\Filter.cshtml" />
     <Content Include="Views\Shipment\CountState.cshtml" />
     <Content Include="Views\Shipment\GroupCity.cshtml" />
+    <Content Include="Views\Shipment\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

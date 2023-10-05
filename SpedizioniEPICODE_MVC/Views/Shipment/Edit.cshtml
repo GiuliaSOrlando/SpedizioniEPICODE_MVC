@@ -1,17 +1,23 @@
 ﻿@model SpedizioniEPICODE_MVC.Models.Shipments
 
+@{
+    ViewBag.Title = "Edit";
+}
+
 <div class="container mt-5 bg-warning">
     <h2 class="fw-lighter text-dark">MODIFICA SPEDIZIONE</h2>
     <hr class="text-dark" />
 
     @using (Html.BeginForm("Edit", "Shipment", FormMethod.Post))
     {
+
         @Html.HiddenFor(model => model.IdSpedizione)
         @Html.HiddenFor(model => model.NumeroIdentificativo)
+        @Html.HiddenFor(model => model.ClienteID)
 
         <div class="form-group">
             @Html.LabelFor(model => model.DataSpedizione, new { @class = "control-label" })
-            @Html.TextBoxFor(model => model.DataSpedizione, new {type="date", @class = "form-control" })
+            @Html.TextBoxFor(model => model.DataSpedizione, new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.DataSpedizione, "", new { @class = "text-danger" })
         </div>
 
@@ -47,7 +53,7 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.DataConsegnaPrevista, new { @class = "control-label" })
-            @Html.TextBoxFor(model => model.DataConsegnaPrevista, new { type = "date", @class = "form-control" })
+            @Html.TextBoxFor(model => model.DataConsegnaPrevista, new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.DataConsegnaPrevista, "", new { @class = "text-danger" })
         </div>
 
@@ -85,7 +91,7 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.DataOraAggiornamento, new { @class = "control-label" })
-            @Html.TextBoxFor(model => model.DataOraAggiornamento, new { type = "date", @class = "form-control" })
+            @Html.TextBoxFor(model => model.DataOraAggiornamento, new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.DataOraAggiornamento, "", new { @class = "text-danger" })
         </div>
 
