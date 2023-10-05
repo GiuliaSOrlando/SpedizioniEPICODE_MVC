@@ -105,6 +105,14 @@
                 let dataFine = null;
 
                 if (selectedOption === 'personalizzato') {
+                    $('#dateFields').show();
+                    $('#dateFieldsEnd').show();
+                } else {
+                    $('#dateFields').hide();
+                    $('#dateFieldsEnd').hide();
+                }
+
+                if (selectedOption === 'personalizzato') {
                     dataInizio = $('#dataInizio').val();
                     dataFine = $('#dataFine').val();
                 }
@@ -121,7 +129,6 @@
                 let clienteNome = $('#clienteNome').val();
                 let clienteCognome = $('#clienteCognome').val();
 
-                // Check if at least one filter value is provided
                 if (
                     selectedOption === 'personalizzato' ||
                     numeroIdentificativo ||

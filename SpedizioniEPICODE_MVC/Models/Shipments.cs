@@ -15,7 +15,7 @@ namespace SpedizioniEPICODE_MVC.Models
         //Proprietà
         public int IdSpedizione { get; set; }
 
-        public int IdCliente { get; set; }
+        public int ClienteId { get; set; }
 
         [Display(Name = "Numero identificativo")]
         [StringLength(36)]
@@ -252,7 +252,7 @@ namespace SpedizioniEPICODE_MVC.Models
                     shipment = new Shipments
                     {
                         IdSpedizione = (int)reader["IdSpedizione"],
-                        IdCliente = (int)reader["IdCliente"],
+                        ClienteId = (int)reader["IdCliente"],
                         NumeroIdentificativo = reader["NumeroIdentificativo"].ToString(),
                         DataSpedizione = (DateTime)reader["DataSpedizione"],
                         Peso = (decimal)reader["Peso"],
