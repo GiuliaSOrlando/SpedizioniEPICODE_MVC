@@ -194,7 +194,7 @@
     <Content Include="Views\Shipment\ViewAll.cshtml" />
     <Content Include="Views\Shipment\Details.cshtml" />
     <Content Include="Views\Shipment\Edit.cshtml" />
-    <Content Include="Views\Shipment\ViewDate.cshtml" />
+    <Content Include="Views\Shipment\Filter.cshtml" />
     <Content Include="Views\Shipment\CountState.cshtml" />
     <Content Include="Views\Shipment\GroupCity.cshtml" />
   </ItemGroup>

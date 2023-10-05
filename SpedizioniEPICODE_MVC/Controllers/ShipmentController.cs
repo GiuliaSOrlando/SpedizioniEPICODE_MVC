@@ -108,7 +108,7 @@ namespace SpedizioniEPICODE_MVC.Controllers
         }
 
         [Authorize(Roles = "Admin")]
-        public ActionResult ViewDate()
+        public ActionResult Filter()
         {
             return View();
         }

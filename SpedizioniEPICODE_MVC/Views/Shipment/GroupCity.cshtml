@@ -1,12 +1,14 @@
-﻿@@{
+﻿@{
     ViewBag.Title = "Group City";
 }
 
-<h2>Città Destinatarie</h2>
+<div class="bg-warning p-4 rounded-3 w-75 m-auto">
+    <h2>SPEDIZIONI PER CITTA'</h2>
+    <hr class="text-dark"/>
+    <div class="lead" id="cittaDestinatarie">
+    </div>
 
-<div id="cittaDestinatarie">
 </div>
-
 @section scripts{
     <script>
         $(document).ready(function () {
